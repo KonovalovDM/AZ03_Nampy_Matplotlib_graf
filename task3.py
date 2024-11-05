@@ -22,9 +22,9 @@ soup = BeautifulSoup(response.content, "html.parser")
 
 # Извлечение названий и цен диванов
 sofa_data = []
-for product in soup.find_all("div", class_="product-card"):  # Убедись, что класс соответствует сайту
-    name = product.find("a", class_="product-card__name").text.strip()
-    price = product.find("span", class_="product-card__price").text.strip().replace("₽", "").replace(" ", "")
+for product in soup.find_all("div", class_="_Ud0k"):  # Выбираем соответствующий класс
+    name = product.find("div", class_="lsooF").text.strip()
+    price = product.find("span", class_="ui-LD-ZU").text.strip().replace("руб.", "").replace(" ", "")
     sofa_data.append({"Название": name, "Цена": int(price)})
 
 # Сохранение данных в CSV файл
@@ -47,9 +47,3 @@ plt.show()
 # Проверка загруженных данных
 print(df.head())  # Вывод первых нескольких строк для проверки структуры
 
-if "Цена" in df.columns:
-    # Если столбец "Цена" существует, вычисляем среднюю цену
-    average_price = df["Цена"].mean()
-    print(f"Средняя цена на диваны: {average_price:.2f} ₽")
-else:
-    print("Столбец 'Цена' не найден в DataFrame. Проверьте структуру данных.")
